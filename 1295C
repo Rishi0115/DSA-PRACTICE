@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+
+    while (T--) {
+        string s, t;
+        cin >> s >> t;
+
+        vector<int> pos[26];
+
+        for (int i = 0; i < (int)s.size(); i++) {
+            pos[s[i] - 'a'].push_back(i);
+        }
+
+        bool possible = true;
+        for (char c : t) {
+            if (pos[c - 'a'].empty()) {
+                possible = false;
+                break;
+            }
+        }
+
+        if (!possible) {
+            cout << -1 << '\n';
+            continue;
+        }
+
+        int ans = 1;
+        int curPos = -1;
+
+        for (char c : t) {
+            auto &v = pos[c - 'a'];
+
+            auto it = upper_bound(v.begin(), v.end(), curPos);
+
+            if (it == v.end()) {
+                ans++;
+                curPos = v[0];
+            } else {
+                curPos = *it;
+            }
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
