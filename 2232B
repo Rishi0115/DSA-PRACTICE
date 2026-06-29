@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+using int64 = long long;
+int main() {
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int n;
+        cin >> n;
+
+        int64 pref = 0;
+        int64 mn = (1LL << 60);
+
+        for (int i = 1; i <= n; i++) {
+            int64 x;
+            cin >> x;
+            pref += x;
+            mn = min(mn, pref / i);
+            cout << mn << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
